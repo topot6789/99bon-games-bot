@@ -1,1 +1,1 @@
-worker: 99bon-game-bot.py
+worker: python 99bon-game-bot.py
