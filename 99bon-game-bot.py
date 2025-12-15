@@ -124,7 +124,7 @@ async def game_control(client, message: Message):
 @app.on_message(filters.group)
 async def game_handler(client, message: Message):
     if message.sticker:
-        await message.reply("DEBUG: sticker detected")
+        await message.reply("Please send proper emoji, not the sticker!")
         return
     if message.dice:
         emoji = message.dice.emoji
@@ -171,7 +171,7 @@ async def game_handler(client, message: Message):
                 await message.reply(
                     f"🎳 **STRIKE JACKPOT!!** 🎳\n"
                     f"{mention} bowls a **PERFECT STRIKE!** ✨\n\n"
-                    f"You win **₱20**!\n\n"
+                    f"You win **₱10**!\n\n"
                     f"Please send a screenshot of your P200 deposit + username to claim your bonus.",
                     quote=True
                 )
@@ -272,7 +272,7 @@ async def game_handler(client, message: Message):
             daily_winners.add(user_id)
             return await message.reply(
                 f"💥🔓 **SAFE OPENED!**\n"
-                f"{mention} wins **20 pesos!** 🎉\n\n"
+                f"{mention} wins **10 pesos!** 🎉\n\n"
                 "Please send a screenshot of your P200 deposit + username to claim your bonus."
             )
 
