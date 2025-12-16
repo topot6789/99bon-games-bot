@@ -251,8 +251,10 @@ async def game_handler(client, message: Message):
             return
         
         if user_id in daily_winners:
-            await message.reply("🚫 You have already won a prize today! Come back tomorrow 😊", quote=True)
-            return
+            if emoji.startswith("🔒") or emoji.startswith("⛏️") or emoji.startswith("⛏"):
+                await message.reply("🚫 You have already won a prize today! Come back tomorrow 😊", quote=True)
+            else:
+                return
 
         if emoji.startswith("🔒"):
             if user_id in safe_attempts:
