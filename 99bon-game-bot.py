@@ -112,7 +112,7 @@ async def game_control(client, message: Message):
 
     elif cmd == "/startslots":
         slots_active = True
-        await message.reply("Slot Machine is now ACTIVE! Spin 🎰")
+        await message.reply("Slot Machine is now ACTIVE! Send 🎰 to Participate")
     elif cmd == "/stopslots":
         slots_active = False
         slots_attempts.clear()
@@ -120,7 +120,7 @@ async def game_control(client, message: Message):
 
     elif cmd == "/startbowl":
         bowl_active = True
-        await message.reply("Bowling game is now ACTIVE! Throw 🎳")
+        await message.reply("Bowling game is now ACTIVE! Send 🎳 to Participate")
     elif cmd == "/stopbowl":
         bowl_active = False
         bowling_attempts.clear()
@@ -128,7 +128,7 @@ async def game_control(client, message: Message):
 
     elif cmd == "/startfoot":
         football_active = True
-        await message.reply("Football game is now ACTIVE! Kick ⚽")
+        await message.reply("Football game is now ACTIVE! Send ⚽ to Participate")
     elif cmd == "/stopfoot":
         football_active = False
         football_attempts.clear()
@@ -137,7 +137,7 @@ async def game_control(client, message: Message):
 @app.on_message(filters.group)
 async def game_handler(client, message: Message):
     if message.sticker:
-        await message.reply("Please send proper emoji, not the sticker!")
+        await message.reply("Please send proper emoji if you wish to participate in the game!")
         return
     if message.dice:
         emoji = message.dice.emoji
@@ -163,7 +163,7 @@ async def game_handler(client, message: Message):
             return
         
         if user_id in daily_winners:
-            await message.reply("🚫 You have already won a prize today! Come back tomorrow 😊", quote=True)
+            await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
             return
 
         if emoji.startswith("🎳"):
@@ -185,7 +185,7 @@ async def game_handler(client, message: Message):
                     f"🎳 **STRIKE JACKPOT!!** 🎳\n"
                     f"{mention} bowls a **PERFECT STRIKE!** ✨\n\n"
                     f"You win **₱10**!\n\n"
-                    f"Please send a screenshot of your P200 deposit + username to claim your bonus.",
+                    f"Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus.",
                     quote=True
                 )
                 daily_winners.add(user_id)
@@ -216,7 +216,7 @@ async def game_handler(client, message: Message):
                 daily_winners.add(user_id)
                 await message.reply("⚽GOAL⚽\n\n"
                                     f"{mention} WINS 10 pesos!! 🎉\n\n"
-                                    f"Please send a screenshot of your P200 deposit today along with your username to claim your prize.\n\n")
+                                    f"Please send a screenshot of your P200 deposit made today along with your Player ID only on this group, to claim your prize.\n\n")
             #   daily_winners.add(user_id)
 
                 if current_attempt == 1:
@@ -240,7 +240,7 @@ async def game_handler(client, message: Message):
                 f"🎰 **Slot Machine** 🎰\n"
                 f"**{status}**\n"
                 f"Reward: ₱{payout}\n\n"
-                "Please send a screenshot of your P500 deposit today along with your username to claim your prize"
+                "Please send a screenshot of your P500 deposit made today along with your Player ID only on this group, to claim your prize"
             )
             await message.reply(msg, quote=True)
             daily_winners.add(user_id)
@@ -265,7 +265,7 @@ async def game_handler(client, message: Message):
         
         if user_id in daily_winners:
             if emoji.startswith("🔒") or emoji.startswith("⛏️") or emoji.startswith("⛏"):
-                await message.reply("🚫 You have already won a prize today! Come back tomorrow 😊", quote=True)
+                await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
             else:
                 return
 
@@ -288,7 +288,7 @@ async def game_handler(client, message: Message):
             return await message.reply(
                 f"💥🔓 **SAFE OPENED!**\n"
                 f"{mention} wins **10 pesos!** 🎉\n\n"
-                "Please send a screenshot of your P200 deposit + username to claim your bonus."
+                "Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus."
             )
 
         elif emoji.startswith("⛏️") or emoji.startswith("⛏") :
@@ -311,7 +311,7 @@ async def game_handler(client, message: Message):
                 await progress.edit_text(
                     f"💎 **DIAMOND FOUND!** 💎\n\n"
                     f"{mention} WINS **10 PESOS!** 🎉\n\n"
-                    f"Please send a screenshot of your P200 deposit + username to claim your bonus."
+                    f"Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus."
                 )
                 daily_winners.add(user_id)
                 return
