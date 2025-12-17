@@ -69,6 +69,14 @@ def calculate_slot_payout(s1, s2, s3):
 
 # ───── ADMIN COMMANDS ─────
 async def is_admin(client, message):
+    # Anonymous admin (sent as group)
+    if message.sender_chat:
+        return True
+
+    # Normal admin
+    if not message.from_user:
+        return False
+        
     member = await client.get_chat_member(message.chat.id, message.from_user.id)
     return member.status.value in ('owner', 'administrator')
 
