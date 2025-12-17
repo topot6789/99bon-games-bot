@@ -69,16 +69,21 @@ def calculate_slot_payout(s1, s2, s3):
 
 # ───── ADMIN COMMANDS ─────
 async def is_admin(client, message):
-    # Anonymous admin (sent as group)
-    if message.sender_chat:
-        return True
-
-    # Normal admin
-    if not message.from_user:
+     # Ignore non-group
+    if not message.chat:
         return False
         
-    member = await client.get_chat_member(message.chat.id, message.from_user.id)
-    return member.status.value in ('owner', 'administrator')
+    # Anonymous admin (sent as group)
+    if message.sender_chat and message.sender_chat.id == message.chat.id:
+        return True
+    # Normal user admin
+    if message.from_user:
+        member = await client.get_chat_member(
+            message.chat.id,
+            message.from_user.id
+        )
+        return member.status.value in ("administrator", "owner")
+    return False
 
 @app.on_message(filters.command(["startsafe", "stopsafe", "startmine", "stopmine", "startslots", "stopslots", "startbowl", "stopbowl", "startfoot", "stopfoot"]) & filters.group)
 async def game_control(client, message: Message):
