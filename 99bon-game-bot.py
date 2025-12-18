@@ -287,7 +287,7 @@ async def game_handler(client, message: Message):
             daily_winners.add(user_id)
             return await message.reply(
                 f"💥🔓 **SAFE OPENED!**\n"
-                f"{mention} wins **10 pesos!** 🎉\n\n"
+                f"{mention} wins **50 pesos!** 🎉\n\n"
                 "Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus."
             )
 
