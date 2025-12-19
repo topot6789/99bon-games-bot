@@ -365,7 +365,7 @@ async def game_handler(client, message: Message):
 
         if emoji.startswith("🔒"):
             if user_id in safe_attempts:
-                return await message.reply("⏳ You've already tried cracking the safe this round
+                return await message.reply("⏳ You've already tried cracking the safe this round!")
                 
             if user_id in daily_winners:
                 await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
