@@ -224,12 +224,19 @@ async def game_handler(client, message: Message):
             return
 
         if emoji.startswith("🎳"):
+            if is_forwarded(message):
+                await message.reply("🚫 Forwarding an emoji is not allowed!", quote=True)
+                return
             # Get attempts
             attempts = bowling_attempts.get(user_id, 0)
 
             if attempts >= 2:
                 await message.reply("🎳 You have **no more** attempts left in this round! ❌", quote=True)
                 return
+                
+            if user_id in daily_winners:
+                await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
+                return 
 
             attempts += 1
             bowling_attempts[user_id] = attempts
@@ -246,7 +253,9 @@ async def game_handler(client, message: Message):
                     quote=True
                 )
                 daily_winners.add(user_id)
-
+                if user_id in daily_winners:
+                    await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
+                return 
                 if attempts == 1:
                     bowling_attempts[user_id] = 2
                     await message.reply("You scored a **STRIKE on your first try** — second attempt removed!", quote=True)
@@ -259,12 +268,19 @@ async def game_handler(client, message: Message):
 
 
         elif emoji.startswith("⚽"): # Football
+            if is_forwarded(message):
+                await message.reply("🚫 Forwarding an emoji is not allowed!", quote=True)
+                return
             attempts = football_attempts.get(user_id, 0)
             if attempts >= 2:
                 await asyncio.sleep(1)
                 await message.reply("You have no more football chances this round! ❌", quote=True)
                 return
-
+                
+            if user_id in daily_winners:
+                await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
+                return 
+                
             current_attempt = attempts + 1
             football_attempts[user_id] = current_attempt
             await asyncio.sleep(2)
@@ -283,9 +299,16 @@ async def game_handler(client, message: Message):
                 await message.reply("Better Luck Next time!", quote=True)
 
         elif emoji.startswith("🎰"): # Slot Machine
+            if is_forwarded(message):
+                await message.reply("🚫 Forwarding an emoji is not allowed!", quote=True)
+                return
             if user_id in slots_attempts:
                 await message.reply("You already used your 1 slot spin this round!", quote=True)
                 return
+            if user_id in daily_winners:
+                await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
+                return 
+                
             slots_attempts.add(user_id)
             
             s1, s2, s3 = decode_slot(value)
@@ -339,17 +362,15 @@ async def game_handler(client, message: Message):
             else:
                 await message.reply(" Mining event is currently **not active**. ❌", quote=True)
             return
-        
-        if user_id in daily_winners:
-            if emoji.startswith("🔒") or emoji.startswith("⛏️") or emoji.startswith("⛏"):
-                await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
-            else:
-                return
 
         if emoji.startswith("🔒"):
             if user_id in safe_attempts:
-                return await message.reply("⏳ You've already tried cracking the safe this round!")
-
+                return await message.reply("⏳ You've already tried cracking the safe this round
+                
+            if user_id in daily_winners:
+                await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
+                return
+                                           
             safe_attempts.add(user_id)
 
             opened = (random.randint(1, SAFE_WIN_CHANCE) == 1)
@@ -375,6 +396,10 @@ async def game_handler(client, message: Message):
             if attempts >= 2:
                 return await message.reply("⛏️ You already used **2 mining attempts** this round!", quote=True)
 
+            if user_id in daily_winners:
+                await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
+                return 
+                
             attempts += 1
             mining_attempts[user_id] = attempts
 
