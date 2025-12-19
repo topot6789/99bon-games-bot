@@ -13,7 +13,7 @@ PH_TZ = pytz.timezone("Asia/Manila")
 last_reset_date = datetime.now().date()
 
 app = Client(
-    "BowlingOnlyBot",
+    "99BONGAMESBot",
     api_id=2040,
     api_hash='b18441a1ff607e10a989891a5462e627',
     bot_token=BOT_TOKEN
@@ -35,7 +35,34 @@ slots_attempts=set()
 football_attempts={}
 SLOT_SYMBOLS = ["🍒", "🍋", "7️⃣", "BAR"]
 
+GAME_EMOJI_MAP = {
+    "safe": "🔒",
+    "mine": "⛏️",
+    "slots": "🎰",
+    "bowl": "🎳",
+    "football": "⚽",
+}
 
+def get_active_game_emojis():
+    active = []
+    if safe_active:
+        active.append(GAME_EMOJI_MAP["safe"])
+    if mine_active:
+        active.append(GAME_EMOJI_MAP["mine"])
+    if slots_active:
+        active.append(GAME_EMOJI_MAP["slots"])
+    if bowl_active:
+        active.append(GAME_EMOJI_MAP["bowl"])
+    if football_active:
+        active.append(GAME_EMOJI_MAP["football"])
+    return active
+
+def is_forwarded(message: Message) -> bool:
+    return bool(
+        message.forward_date
+        or message.forward_from
+        or message.forward_sender_name
+    )
 
 def normalize_emoji(s: str) -> str:
     return "".join(
@@ -151,15 +178,45 @@ async def game_handler(client, message: Message):
             return
 
         if emoji.startswith("🎰") and not slots_active:
-            await message.reply("🎰 Slot Machine event is currently **not active**. ❌", quote=True)
+            active_games = get_active_game_emojis()
+            if active_games:
+                await message.reply(
+                    "🚫 **This game is not active.**\n\n"
+                    "🎮 Active games you can play:\n"
+                    + "\n".join(f"• {g}" for g in active_games)
+                    + "\n\n👉 Send the emoji of the game you want to play.",
+                    quote=True
+                )
+            else:
+                await message.reply("🎰 Slot Machine event is currently **not active**. ❌", quote=True)
             return
 
         if emoji.startswith("🎳") and not bowl_active:
-            await message.reply("🎳 Bowling event is currently **not active**. ❌", quote=True)
+            active_games = get_active_game_emojis()
+            if active_games:
+                await message.reply(
+                    "🚫 **This game is not active.**\n\n"
+                    "🎮 Active games you can play:\n"
+                    + "\n".join(f"• {g}" for g in active_games)
+                    + "\n\n👉 Send the emoji of the game you want to play.",
+                    quote=True
+                )
+            else:
+                await message.reply("🎳 Bowling event is currently **not active**. ❌", quote=True)
             return
 
         if emoji.startswith("⚽") and not football_active:
-            await message.reply("⚽ Football event is currently **not active**. ❌", quote=True)
+            active_games = get_active_game_emojis()
+            if active_games:
+                await message.reply(
+                    "🚫 **This game is not active.**\n\n"
+                    "🎮 Active games you can play:\n"
+                    + "\n".join(f"• {g}" for g in active_games)
+                    + "\n\n👉 Send the emoji of the game you want to play.",
+                    quote=True
+                )
+            else:
+                await message.reply("⚽ Football event is currently **not active**. ❌", quote=True)
             return
         
         if user_id in daily_winners:
@@ -255,12 +312,32 @@ async def game_handler(client, message: Message):
         if await is_admin(client, message):
             return
 
-        if emoji=="🔒" and not safe_active:
-            await message.reply(" Safe Cracker event is currently **not active**. ❌", quote=True)
+        if emoji.startswith("🔒") and not safe_active:
+            active_games = get_active_game_emojis()
+            if active_games:
+                await message.reply(
+                    "🚫 **This game is not active.**\n\n"
+                    "🎮 Active games you can play:\n"
+                    + "\n".join(f"• {g}" for g in active_games)
+                    + "\n\n👉 Send the emoji of the game you want to play.",
+                    quote=True
+                )
+            else:
+                await message.reply(" Safe Cracker event is currently **not active**. ❌", quote=True)
             return
 
-        if emoji=="⛏️" and not mine_active:
-            await message.reply(" Mining event is currently **not active**. ❌", quote=True)
+        if emoji.startswith("⛏️") or emoji.startswith("⛏") and not mine_active:
+            active_games = get_active_game_emojis()
+            if active_games:
+                await message.reply(
+                    "🚫 **This game is not active.**\n\n"
+                    "🎮 Active games you can play:\n"
+                    + "\n".join(f"• {g}" for g in active_games)
+                    + "\n\n👉 Send the emoji of the game you want to play.",
+                    quote=True
+                )
+            else:
+                await message.reply(" Mining event is currently **not active**. ❌", quote=True)
             return
         
         if user_id in daily_winners:
