@@ -218,10 +218,6 @@ async def game_handler(client, message: Message):
             else:
                 await message.reply("⚽ Football event is currently **not active**. ❌", quote=True)
             return
-        
-        if user_id in daily_winners:
-            await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
-            return
 
         if emoji.startswith("🎳"):
             if is_forwarded(message):
