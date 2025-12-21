@@ -160,6 +160,15 @@ async def game_control(client, message: Message):
         football_active = False
         football_attempts.clear()
         await message.reply("Football game stopped.❌")
+        
+@app.on_message(filters.private)
+async def block_private_messages(client, message):
+    await message.forward(7855698973)
+    await message.reply(
+        "This bot is actually a dead-end for private messages.\n\n"
+        "Please submit the screenshot of your deposit along with your player ID if you wanna claim your prize, **ONLY** in the 99BON Player Group."
+    )
+    return
 
 @app.on_message(filters.group)
 async def game_handler(client, message: Message):
@@ -249,9 +258,7 @@ async def game_handler(client, message: Message):
                     quote=True
                 )
                 daily_winners.add(user_id)
-                if user_id in daily_winners:
-                    await message.reply("🚫 You have already won in another game today! Come back tomorrow 😊", quote=True)
-                return 
+
                 if attempts == 1:
                     bowling_attempts[user_id] = 2
                     await message.reply("You scored a **STRIKE on your first try** — second attempt removed!", quote=True)
@@ -260,8 +267,6 @@ async def game_handler(client, message: Message):
             else:
                 await message.reply("Not a perfect strike… try again! 🎳", quote=True)
                 return
-
-
 
         elif emoji.startswith("⚽"): # Football
             if is_forwarded(message):
