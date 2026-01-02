@@ -257,7 +257,7 @@ async def game_handler(client, message: Message):
                     f"{mention} bowls a **PERFECT STRIKE!** ✨\n\n"
                     f"You win **₱10**!\n\n"
                     f"Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus.\n\n"
-                    "**NOTE:** THE DEPOSIT MUST BE MADE BEFORE YOU HAVE PLAYED THE GAME, NOT AFTER THE GAME IS PLAYED",
+                    "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted.",
                     quote=True
                 )
                 daily_winners.add(user_id)
@@ -294,7 +294,7 @@ async def game_handler(client, message: Message):
                 await message.reply("⚽GOAL⚽\n\n"
                                     f"{mention} WINS 10 pesos!! 🎉\n\n"
                                     f"Please send a screenshot of your P200 deposit made today along with your Player ID only on this group, to claim your prize.\n\n"
-                                     "**NOTE**: THE DEPOSIT MUST BE MADE BEFORE YOU HAVE PLAYED THE GAME, NOT AFTER THE GAME IS PLAYED")
+                                     "**NOTE**: The deposit must be made before playing the game. Deposits made after gameplay will not be accepted.")
             #   daily_winners.add(user_id)
 
                 if current_attempt == 1:
@@ -326,7 +326,7 @@ async def game_handler(client, message: Message):
                 f"**{status}**\n"
                 f"Reward: ₱{payout}\n\n"
                 "Please send a screenshot of your P500 deposit made today along with your Player ID only on this group, to claim your prize.\n\n"
-                "**NOTE:** THE DEPOSIT MUST BE MADE BEFORE YOU HAVE PLAYED PLAY THE GAME, NOT AFTER THE GAME IS PLAYED"
+                "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted."
             )
             await message.reply(msg, quote=True)
             daily_winners.add(user_id)
@@ -393,7 +393,7 @@ async def game_handler(client, message: Message):
                 f"💥🔓 **SAFE OPENED!**\n"
                 f"{mention} wins **50 pesos!** 🎉\n\n"
                 "Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus.\n\n"
-                "**NOTE:** THE DEPOSIT MUST BE MADE BEFORE YOU HAVE PLAYED THE GAME, NOT AFTER THE GAME IS PLAYED"
+                "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted."
             )
 
         elif emoji.startswith("⛏️") or emoji.startswith("⛏") :
@@ -421,7 +421,7 @@ async def game_handler(client, message: Message):
                     f"💎 **DIAMOND FOUND!** 💎\n\n"
                     f"{mention} WINS **10 PESOS!** 🎉\n\n"
                     f"Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus.\n\n"
-                    "**NOTE:** THE DEPOSIT MUST BE MADE BEFORE YOU HAVE PLAYED THE GAME, NOT AFTER THE GAME IS PLAYED"
+                    "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted."
                 )
                 daily_winners.add(user_id)
                 return
