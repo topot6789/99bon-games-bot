@@ -6,6 +6,10 @@ import asyncio
 import pytz
 import unicodedata
 import os
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ChatPermissions
+import logging
+
+
 
 daily_winners = set()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -18,7 +22,7 @@ app = Client(
     api_hash='b18441a1ff607e10a989891a5462e627',
     bot_token=BOT_TOKEN
 )
-
+logging.basicConfig(level=logging.INFO)
 BLOCKED_KEYWORDS = [
     "customer service",
     "customerservice",
