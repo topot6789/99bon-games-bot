@@ -65,6 +65,16 @@ GAME_EMOJI_MAP = {
     "football": "⚽",
 }
 
+def looks_like_impersonation(user):
+    name_parts = [
+        user.first_name or "",
+        user.last_name or "",
+    ]
+
+    full_name = " ".join(name_parts).lower()
+
+    return any(keyword in full_name for keyword in BLOCKED_KEYWORDS)
+
 def get_active_game_emojis():
     active = []
     if safe_active:
