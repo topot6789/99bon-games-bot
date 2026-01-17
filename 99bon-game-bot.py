@@ -148,7 +148,7 @@ async def game_control(client, message: Message):
     if cmd == "/startsafe":
         safe_active = True
         await message.reply("Safe Cracker is now ACTIVE! Send '🔒' to participate ")
-        await client.send_message(chat_id, "🔒")
+        await client.send_message(message.chat.id, "🔒")
     elif cmd == "/stopsafe":
         safe_active = False
         safe_attempts.clear()
@@ -157,7 +157,7 @@ async def game_control(client, message: Message):
     elif cmd == "/startmine":
         mine_active = True
         await message.reply("Mine game is now ACTIVE! Send '⛏️' to participate ")
-        await client.send_message(chat_id, "⛏️")
+        await client.send_message(message.chat.id, "⛏️")
     elif cmd == "/stopmine":
         mine_active = False
         mining_attempts.clear()
