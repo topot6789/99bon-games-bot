@@ -363,7 +363,7 @@ async def game_handler(client, message: Message):
 
             await asyncio.sleep(1)            
             msg = (
-                f"🎰 **Slot Machine** 🎰\n"
+                f"🎰 **Slot Fortune** 🎰\n"
                 f"**{status}**\n"
                 f"Reward: ₱{payout} for @{user.username}!\n\n"
                 "Please send a screenshot of your P500 deposit made today along with your Player ID only on this group, to claim your prize.\n\n"
