@@ -365,7 +365,7 @@ async def game_handler(client, message: Message):
             msg = (
                 f"🎰 **Slot Machine** 🎰\n"
                 f"**{status}**\n"
-                f"Reward: ₱{payout}\n\n"
+                f"Reward: ₱{payout} for @{user}!\n\n"
                 "Please send a screenshot of your P500 deposit made today along with your Player ID only on this group, to claim your prize.\n\n"
                 "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted."
             )
