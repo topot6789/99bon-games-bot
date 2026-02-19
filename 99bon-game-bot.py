@@ -224,6 +224,8 @@ async def game_handler(client, message: Message):
         user = message.from_user
         user_id = user.id
         mention = f"@{user.username}" if user.username else user.first_name
+        user_mention = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
+
         reset_daily_winners()
 
         if await is_admin(client, message):
@@ -295,7 +297,7 @@ async def game_handler(client, message: Message):
             if value == 6:
                 await message.reply(
                     f"🎳 **STRIKE JACKPOT!!** 🎳\n"
-                    f"{mention} bowls a **PERFECT STRIKE!** ✨\n\n"
+                    f"{user_mention} bowls a **PERFECT STRIKE!** ✨\n\n"
                     f"You win **₱10**!\n\n"
                     f"Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus.\n\n"
                     "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted.",
@@ -329,11 +331,11 @@ async def game_handler(client, message: Message):
             current_attempt = attempts + 1
             football_attempts[user_id] = current_attempt
             await asyncio.sleep(2)
-            await message.reply(f"{mention} kicked - chance ({attempts + 1}/2)")
+            await message.reply(f"{user_mention} kicked - chance ({attempts + 1}/2)")
             if value in (4, 5, 6):
                 daily_winners.add(user_id)
                 await message.reply("⚽GOAL⚽\n\n"
-                                    f"{mention} WINS 10 pesos!! 🎉\n\n"
+                                    f"{user_mention} WINS 10 pesos!! 🎉\n\n"
                                     f"Please send a screenshot of your P200 deposit made today along with your Player ID only on this group, to claim your prize.\n\n"
                                      "**NOTE**: The deposit must be made before playing the game. Deposits made after gameplay will not be accepted.")
             #   daily_winners.add(user_id)
@@ -365,7 +367,7 @@ async def game_handler(client, message: Message):
             msg = (
                 f"🎰 **Slot Fortune** 🎰\n"
                 f"**{status}**\n"
-                f"Reward: ₱{payout} for @{user.username}!\n\n"
+                f"Reward: ₱{payout} for {user_mention}!\n\n"
                 "Please send a screenshot of your P500 deposit made today along with your Player ID only on this group, to claim your prize.\n\n"
                 "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted."
             )
@@ -425,14 +427,14 @@ async def game_handler(client, message: Message):
             if opened == 0:
                 await asyncio.sleep(1)
                 return await message.reply(
-                    f"🔐 {mention} tried cracking the safe...\n"
+                    f"🔐 {user_mention} tried cracking the safe...\n"
                     f"but it's **LOCKED!** ❌"
                 )
             await asyncio.sleep(1)
             daily_winners.add(user_id)
             return await message.reply(
                 f"💥🔓 **SAFE OPENED!**\n"
-                f"{mention} wins **50 pesos!** 🎉\n\n"
+                f"{user_mention} wins **50 pesos!** 🎉\n\n"
                 "Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus.\n\n"
                 "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted."
             )
@@ -460,7 +462,7 @@ async def game_handler(client, message: Message):
                 await asyncio.sleep(1)
                 await progress.edit_text(
                     f"💎 **DIAMOND FOUND!** 💎\n\n"
-                    f"{mention} WINS **10 PESOS!** 🎉\n\n"
+                    f"{user_mention} WINS **10 PESOS!** 🎉\n\n"
                     f"Please send a screenshot of your P200 deposit made today + Player ID only on this group, to claim your bonus.\n\n"
                     "**NOTE:** The deposit must be made before playing the game. Deposits made after gameplay will not be accepted."
                 )
