@@ -379,6 +379,7 @@ async def game_handler(client, message: Message):
         user = message.from_user
         user_id = user.id
         mention = f"@{user.username}" if user.username else user.first_name
+        user_mention = f'<a href="tg://user?id={message.from_user.id}">{message.from_user.first_name}</a>'
         reset_daily_winners()
         
         if await is_admin(client, message):
